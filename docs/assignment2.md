@@ -240,3 +240,10 @@ The second video: https://youtu.be/Z00OpOBmIb8 , we show how the "Get informatio
 ### Assignment 1 feedback
 
 After receiving the feedback, we have changed the assignment 1 document that can be found in the docs section in both Assignment 2 branch and Assignment  1-revert. We understood that we were missing a lot of functionalities and during the modeling part of our project we managed to come up with lots of ideas that can be implemented in our system. 
+
+
+
+### Photos
+
+We had some problems with adding the photos into our project. we know that is not really a nice design to have all the photos in the docs folder, however for the following Assignment we are going to put them separately.
+
