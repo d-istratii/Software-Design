@@ -225,7 +225,7 @@ This class, **main** starts with the declaration on multiple hashmaps that will 
 
 ### Jar file
 
-The Jar file for directly executing the code can be found in Software Design/out/artifacts/software_design_vu_2020_jar/software_design_vu_2020.jar or as a [link](https://github.com/daniel-istratii/Software-Design/tree/Assignment-2/out/artifacts/software_design_vu_2020_jar).
+The Jar file for directly executing the code can be found in Software Design/out/artifacts/software_design_vu_2020_jar/software_design_vu_2020.main.jar or as a [link](https://github.com/daniel-istratii/Software-Design/blob/Assignment-2/out/artifacts/software_design_vu_2020_jar/software-design-vu-2020.main.jar).
 
 ### **Video**
 
