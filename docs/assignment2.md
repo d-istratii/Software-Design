@@ -146,9 +146,26 @@ Going into the next state, he has on more attacker to choose. He starts again th
 
 Author: Kolkma
 
+### **FantasySoccer**
+
 ![State M system](Statemachine1.jpeg)
 
 
+
+The **FantasySoccer** class is the main class of the program where it deals most with user input. When a FantasySoccer object is created, it first transitions into a state called 'Choosing Option'. Once entering this state the program will present the options to the user, namely Get information and Create team, and wait until the user inputs their option. Once the activity is completed, the state can transition to 2 different states depending on the user's choice, in this case let's go with the Create team option. The object then follows a line of states which will transition to the next state once the user has input their option, first with creating the team name, then choosing the team's formation. After these two states, the user will then specify the player they want by entering a loop of states consisting of choosing league, choose team, and choose player. When the user has chosen a player, there will be a transition to the next state depending on 2 guard conditions. If the guard condition that the team is full, i.e. the user has chosen players for all position in their team, evaluates to true then the object transitions to the finished state. If the guard condition that the team is not full after choosing a player has been completed, or the specified player is already in the team evaluates to true, then the state transitions to the previous state of 'Choose League'. 
+If in the beginning the user chooses Get information, the object enters another 'Choose League' state, in which the user is presented with the options of specifically the standings, schedule or the top scorers of that league. Once the event of user input occurs, the state transitions to a print state where the program prints the information specified by the user. The information is presented in different formats base on what the user wants. Once the printing activity is complete, it transitions to the final state.
+
+
+
+### CompetitionStandings
+
+![](StatemachineCompetitionStandings.jpeg)
+
+
+
+
+
+The **CompetitionStandings** class is a small class in which an object is created if the user wants to get information about the standings of teams in a league. Initially it transitions into a printing state, which once entering this state the object sends an HTTP request to the API where the user has specified which league before the object has been created. The object will then print out the response from the API, which will either be the standings or an error message. The object then transitions to the final state.
 
 # Sequence diagrams
 
