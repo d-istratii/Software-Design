@@ -174,7 +174,7 @@ If the user wants to get information about the fixture in the beginning of the e
 
 
 
-![Get info](Sequencediagramsget info.jpeg)
+![Get info](Sequencediagramsgetinfo.jpeg)
 
 
 
