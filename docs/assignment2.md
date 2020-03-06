@@ -34,7 +34,7 @@ Authors: Daniel, Radu
 
 In software engineering, a class diagram in the Unified Modeling Language (UML) is a type of static structure diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects.
 
-![Class Diagram](https://ibb.co/VLwtTgW)
+![](Classdiagram.png)
 
 
 
@@ -130,7 +130,7 @@ Authors: Daniel, Radu
 
 
 
-![Object diagram](/home/msi/Desktop/Object diagram.png)
+![Object diagram](Objectdiagram.png)
 
 
 
@@ -146,11 +146,7 @@ Going into the next state, he has on more attacker to choose. He starts again th
 
 Author: Kolkma
 
-
-
-![WhatsApp Image 2020-03-06 at 15.33.52](/home/msi/Downloads/WhatsApp Image 2020-03-06 at 15.33.52.jpeg)
-
-
+![State M system](Statemachine1.jpeg)
 
 
 
@@ -166,7 +162,7 @@ If the user wants to create a team in the beginning of the execution, basically 
 
 
 
-![WhatsApp Image 2020-03-05 at 15.07.12](/home/msi/Downloads/WhatsApp Image 2020-03-05 at 15.07.12.jpeg)
+![Create Team](Sequencediagramsteam.jpeg)
 
 First of all, there are 3 objects and 1 actor in this diagram. Those components will be interacting with each other during the execution. “Actor” is the user/player, “Client” is the code combined with the GUI, “Api” is the tool which will be used to communicate with the database and the “Data” is the ready to use data which holds the all current soccer data. In the beginning, the client(actual code combined with GUI) will be asking for a “Team Name” to create a new team. This operation is handled and the user’s response will be held in the client's working directory. When the name of the team is ready, as the next step, the client will be asking for the team. This formation will be used later on to fill up the team with players by using a hash map. Afterwards, the formation response from the actor will also be held in the client's working directory. After this point, the actor will be setting up his\her team with players. As the third step, the client will be asking for a league. Once the client receives a response from the actor, it will match the response with the equivalent id number in its data and then send a request to the API by using this id number. When the API receives this request, it will fetch all of the teams in the requested league from the database. Then, the API will send those teams to the client. Afterwards, the actor will be asked to enter a team name. If the actor responds, the client will receive the response, match it with the equivalent id number and send a request to API by using this team id number. The API will fetch the players in the requested team from the database and bring it back to the client. The formation is important here. We hard coded that first of all, the goalkeeper will be chosen from the requested team. So, no matter what operation is going, the first pick for the players will be the goalkeeper. That means, when the first team request is sent to the API, API will bring only the list of goalkeepers in the requested team. Afterwards, according to the formation, API will bring the relevant players till it reaches its limits. For instance, if the actor chooses 4-4-2 as the formation, first team request will bring the goalkeeper and then 4 defenders and so forth. When 11 players are added to the team, the client will ask for a coach and all of the newly created team data will be held in the client's working directory. Then the program will display the user's team by showing each player and his position  in the order they were chosen. After, the program will terminate itself. We do not have error handling yet. So, if we had error handling, on the client side, the client would be checking for formation, league name, team name and player name. Because, if there is a problem with the input taken from the Actor, the rest of the program will not work as required. For instance, every league and every team has been attached to an id number. If the user’s input for the team name does not match with any of those id numbers, the program will not be able to jump into the next step. So, the whole process will be stuck at this point.
 
@@ -178,7 +174,7 @@ If the user wants to get information about the fixture in the beginning of the e
 
 
 
-![WhatsApp Image 2020-03-05 at 15.07.12 (1)](/home/msi/Downloads/WhatsApp Image 2020-03-05 at 15.07.12 (1).jpeg)
+![Get info](Sequencediagramsget info.jpeg)
 
 
 
