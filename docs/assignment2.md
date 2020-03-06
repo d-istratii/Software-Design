@@ -234,3 +234,9 @@ We have created two videos to show the functionalities of our Fantasy Soccer app
 The first video: https://youtu.be/Gs1-5UTbKQA , we present how the user can create a team and the steps in order to add player to his team.
 
 The second video: https://youtu.be/Z00OpOBmIb8 , we show how the "Get information" section works and what the player can find out about his favorite football league. In our example, we just show the standings in the Serie A league.
+
+
+
+### Assignment 1 feedback
+
+After receiving the feedback, we have changed the assignment 1 document that can be found in the docs section in both Assignment 2 branch and Assignment  1-revert. We understood that we were missing a lot of functionalities and during the modeling part of our project we managed to come up with lots of ideas that can be implemented in our system. 
