@@ -44,8 +44,7 @@ class Player{
                 Main.showSquad.put(p.getName(), "Coach");
                 coach = true;
             }
-            PlayerPerformance pp = new PlayerPerformance();
-            pp.teamPerformance(Main.teamPlayers,coach);
+
         }
 
         else {
