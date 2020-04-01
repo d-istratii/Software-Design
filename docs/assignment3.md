@@ -12,11 +12,11 @@
 
 - address the issues with Assignment 1
 
-- address the issues with the Class digram, such as the multiplicity, the missing associations, missing classes and wrong names
+- address the issues with the Class diagram, such as the multiplicity, the missing associations, missing classes and wrong names
 
 - address the issues with the Object diagram and improve it by adding a more in depth example
 
-- changed the state machine diagram as it was more a activity diagram
+- changed the state machine diagram as it was more an activity diagram
 
 - improve the sequence diagram by adding the missing parts such as the guards
 
@@ -40,93 +40,487 @@ Authors: Daniel, Radu
 
 In software engineering, a class diagram in the Unified Modeling Language (UML) is a type of static structure diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects.
 
-![](Classdiagram.png)
+
+
+![ClassDiagram](DescriptiveModel.png)
 
 
 
-### **Class FantasySoccer**
+### **Main**
 
-The class diagram, shown in Fig 1, is centered around the **FantasySoccer class**, which represents the entire application. The only attributes that this main class has are the number of *defenders, midfielders and attackers*, which is the most important factor in creating the desired team, those attributes are public and of type integer. Those attributes are used later in the process of creating the team, by selecting the desired team formation (e.g 4-4-2, 4-3-2-1, etc).
+The **Main** class represents the starting point of the application, here the important attributes of the user’s team are stored, declared and defined, additionally in this class the Main Menu is created and generated such that the application will get into the starting phase of the application.
 
-The operations of the main component class of the diagram, **FantasySoccer**, representing the methods/functions that can be performed by an instance of a class or interface.
+**Attributes:**
 
-Firstly, in order to understand the purpose and scope of each operation, we will briefly explain chronologically each operation as they are encountered and implemented. The first operation is *chooseOption()*, which represents the two possible states of the application. The first state is the state when the client/user has to create the desired team and the second state is when the client/user has the possibility to get information about the Standings, the Top Scorers or the Standings of one of the available Competition from the API. 
+- *teamNumber*: This integer value is used in order to get the team number of both possible teams created, respectively when the first team was created it will have the *teamNumber* of 1, and sequentially the second team will have the *teamNumber* of 2.
+
+- *teamName*: String that stores the team name of the first team created. 
+
+- *teamName2*: Respectively, this String stores the team name of the second team created. 
+
+- *teamPlayers*: This HashMap is used in order to map the whole first squad, for each individual player’s full Name and ID, ID that is used for further HTTP Communication if needed. 
+
+- *teamPlayers2*: Similarly, this HashMap is used for a similar purpose as the previous attribute the only difference is that this attribute is mapping the name and the id for the second team. 
+
+- *teamRating*: HashMap that stores the whole first squad’s name and their respective number of points (performance rating index) that are mapped accordingly.
+
+- *teamRating2*: Accordingly, as the previous attribute this value maps the id with the points of each player for the second team created. 
+
+- *showSquad*: This HashMap is used in order to show the first the team created and details such as name and the index are shown to the user. 
+
+- *showSquad2*: Respectively, this attribute is used to print the details of the entire second squad. 
+
+- *teamMapping*: HashMap that represents the mapping between the football leagues and their respective id, id that is used for further HTTP Communication with the API, if needed.
+
+  
+
+  This class is directly associated with the **LaunchMainMenu** class, the first instance of that class is generated in the **Main** Class.
+  
+  
+
+### **Class LaunchMainMenu**
+
+This class represents the main core of the entire application, here the main functionalities are implemented such as the creation of the team, getting relevant information about competitions, and displaying the rating of the teams. This class also calls the *HTTPCommunication* methods and operations several times, when the communication between the user and the API is needed.
+
+**Attributes:**
+
+*selectedDefenders*: integer: store the number of defenders the user's team has 
+
+*selectedMidfielders*: integer: store the number of midfielders the user's team has 
+
+*selectedAttackers*: integer: store the number of attackers the user's team has 
+
+**Operations**:
+
+~*LaunchMainMenu*() constructor: This constructor is used to initiate the entire application. When this constructor is called all the relevant functions are called subsequently, more specifically and first and foremost, the *chooseOption*() function is called, next, after the desired option has been chosen by the user, for instance the user chose the option “Create team”, the functions needed to create the team will be called such as, *chooseTeamName*(), *chooseFormation*(), and *chooseCompetition*() with the parameter of the desired position is called lastly. It starts by selecting a Goalkeeper for the team, 10 players that will fit the desired formation chosen by the user, and the Coach for the team. Otherwise, if the chosen option is “Get information” the *getInformation*() function will be called, other options available for the user are “Display teams”, “Display ratings” and “Exit”. 
+
+*chooseOption*(): Public method that returns as a string the desired option chosen by the user to the LaunchMainMenu constructor, additionally it checks if the desired option is an available option.chooseTeamName: Public method which gets the user’s input and saves it as the name of the user’s created team.
+
+*chooseFormation*(): Public method which represents the formation of the user’s created team, the first character will be the number of defenders, the sum of all integers in between the first and the last character will be the number of midfielders, and lastly the last character will be the number of attackers. For instance, if the desired formation is 4-2-2-2, the number of defenders will be 4, the number of midfielders will equal to 2+2=4, and the number of attackers will be 2. Additionally this function, like every other function of the program, has error-handling, for instance, it checks first if the total amount of players after the formation has been introduced is indeed equal to 10, also it checks for correct input format, for instance, 4/4/2 will be considered as the wrong format, and 4-4-2 will be the correct format. If the format or the total amount of players after the desired formation has been introduced, an error will be printed and the process will be restarted, therefore the user will have to introduce the formation again.
+
+*chooseCompetition*(position: String): Public method which is responsible for the selection of the desired player, from a specific team and respectively from a specific competition, with a specific position, this method starts by showing to the user all the available competitions from which the user can choose his desired player. This method is directly associated with the HTTPCommunication Class, because in order to retrieve the competitions, teams and players specifically HTTP Requests to the API are required, therefore when such a connection is needed, the methods of the HTTPCommunication are inherited and called. This whole HTTP communication process is as follows, a specific request is sent to the Football API and the response content is parsed and converted from JSON to a JAVA object, and further processed. For instance, when the user wants to see all available teams from a specific competition, let’s say, Premier League, the teamHttpRequest method, which was inherited from the HTTPCommunication class, is called and a response is retrieved in JSON Format which will represent all the teams, and therefore shown to the user. Additionally, this method has error-handling, and always checks if the desired player chosen by the user is a valid player, furtherly the same goes for the desired team and competition. Also, this method takes into consideration the formation chosen before-hand and if the formation was, for instance, 4-4-2, the user will have to choose 4 defenders, 4 midfielders and 2 attackers.
+
+*getInformation*(): This public method represents the possibility for the user to get the relevant information about specific competitions, teams and players.
+
+*displayTeams*(): Public void method which shows the created teams in a detailed view. It shows the players that are part of the team and in which position they are playing.
+
+displayRatings(): Public void method that displays the ratings of each player from each team and the total amount of points of each team. In addition, a message that shows the winner out of the two created teams is displayed on the terminal.
 
 
 
-## Create Team section
+## Create team branch
 
-This operation is of type String, a string value which will be returned and used when an instance will be created by using the constructor *~FantasySoccer(),* every other operation is of type void, no values needed to be returned, only operations to be done in the instance of the app. The second operation is *chooseTeamName()*, which is self-explanatory. This operation represents the mandatory step that needs to be taken by the user when the option to create a team, was selected, which is to choose a team name for the “Fantasy Team”. The next operation is *chooseFormation()*, which represents the requirement of the user to select one of the possible displayed team formations (e.g 4-4-2, 4-3-2-1, etc), that will be used in order to create the team. Therefore, after the formation has been selected, the attributes corresponding with this formation will be assigned with the values inserted by the user. For instance, if the user chooses the most widely used formation of 4-4-2, the attribute defenders will equal 4, midfielders equal 4, and the number of attackers will be equal to 2, error-handling is also present in our implementation, meaning that whenever the user chooses an unknown formation, the operation of selecting the team formation will be looped until the user choose a valid formation for his team. For the next operation of the class, we have *chooseCompetition(),* which will have a parameter on String value representing the position of the selected player that will be checked in the specific competition, for instance after the user will choose the Competition Serie A, and the Team Juventus, and the position that the user is interested, only players with that position, from that team and that competition will be shown. This entire process is done by using HTTP Requests to the Football API, and saving the HTTP Response in a variable called *responseContent***,** which will contain the JSON Object which will be further parsed to Java Objects. The next operation of the **FantasySoccer** class is *getInformation()*, which as mentioned in the beginning of the documentation, offers the user the possibility to see the Standings, the Top Scorers or the Schedule of the desired Competition, an operation which will also work based on HTTP Communication between the User and the Server. Lastly, we have the constructor *~FantasySoccer()* which will basically connect and associate all of the operations of this class. It starts by calling the function *chooseOption(),* then after the desired option was selected by the user, it either creates a new team either shows relevant information to the user.
+### Competition
 
-Secondly, assuming the user chooses the first possible state of the application and wants to create a team, a new class is created and associated based on **FantasySoccer**, the class **Competition**. This class has as attributes the teams, the name, and an HTTP connection. Additionally, it has as operations the getter *getName()*, which will return the value of the variable name of the object. Lastly, this class has as operation the *competitionHttpRequest()*, which will send the HTTP request to the server in order to get relevant information about that competition, the response will show all the available teams from that competition. This response will be processed further, in which the app will send further requests with that team in order to get all the players, and so forth, several requests per minute being made (we would like to mention that in order to use this Application, a paid subscription needs to be active because of the number of requests per minute sent).
+This class is part of the Create Team branch of the program. In this class, all the teams that participate in the league that the user choose are displayed and stored in the variable *teams*. The method *createCompetition*() is called from the **LaunchMainMenu**. Also, the function *competitionHttpRequest*(*id*) ,that is part of **HTTPCommunication** is called in order to get the teams inside that league. 
 
-Thirdly, the team that was obtained from that HTTP response will be parsed further to a Java Class, therefore the **Class Team** represents exactly that, the entire team that was chosen by the user/player, with the following attributes. Firstly, the attribute *squad* which is of type **Player**, representing the actual collection of players (squad) of the team. Secondly, we had to use in our design and modeling process attributes such as *id* and *name*, in order to identify that player by using the API, because for instance if we won’t get relevant information about Cristiano Ronaldo, we need its full name and the id associated with him in the API such that the user can add it to their team, additionally, we used a HashMap to link/tie together the name and ids of the players added to the user’s team. Additionally a connection attribute of type HttpURLConnection. Lastly, this class has as operations 2 getters in order to return *getName* and *getId* of each player that the user is interested into, and the operation that is responsible for the HTTP request in order to get information about all the players of the team which is the *teamHttpRequest()* operation.
+**Attributes**:
 
-Lastly, the last class in chronological order going backward from App to Competition to Team to the **Class Player**. This class contains attributes *id, name, position and role, and connection.* The id and name attributes were explained previously what they represent, so we will explain what the attribute position and role were used for. The attribute position is used to represent the position of each player from the team, e.g Cristiano Ronaldo is an attacker, therefore the Player with the name Cristiano Ronaldo has the value of the position equal to “attacker”, and the role attribute represents the role of each member of the team, one member could be a “PLAYER” and another member could be a “COACH”. In the end, this class has as operations similar to the previous class, getters for id, name, and position, but also the operation that handles the HTTP request of the player that the user is interested in. This is the documentation for how the “Create team” part of the Application is designed and operates, in the following section we will see how the “Get information” part of the Application is modeled and thought.
+*teams*: *Team*[]: Variable that stores in an array of *Team* all the teams that are part of that league.
 
+*name*: string: Variable that is used by the method *getName*() to output the name.
 
+**Operations**:
 
-### Class PlayerRatings
+*getName()*: string : Function that is called in order to display the team names that are part of that league 
 
-In this class the rating of each player in the user's team is going to be calculated. It has the following attributes: *rating* of type integer, *player* of type class **Player**, *matches* of type class **Matches** and *connection* of type HttpURLConnection. The *rating* variable would store the final rating of the player, *player* has the information about the player such as the *name* or *position* and in *matches*, we have the information about the last matched when the player participated. Furthermore, the *connection* is used for the API request to get the data. The operation in this class is *playerPerformanceHttpRequest* which gets the *name* as an attribute. This request gets the needed information from the last match in order to calculate the rating. 
-
-
-
-## Get information section
-
-### Class ScorerStandings
-
-This class is formed of two attribute which are *scorers* of class **Scorers** and *connection* of type HttpURLConnection. The *scorers* attribute would store the information about the top scorers from the chosen league and *connection* is used for the API request to get the data. The operation in this class is just the *scorersRequest* that gets as an attribute the *id* of the chosen league. This request would display the top ten top scorers from that league in the following format: name + goals scored + team.
+*createCompetition*(*id*: integer, *position*: string): void : Public void method which gets from the API the teams participating in the league in JSON Format, stores it and prints it as a string on the terminal. Ask the user to input the wanted team via the terminal. Additionally, this method has error-handling, the user input is checked and the user is asked again if the wrong input is given.
 
 
 
-### Class Scorers
+### Class Team
 
-This class is formed of three attributes, *player* of class type **TopScorer**, *team* of class type **Team** and *numberOfGoals* of type integer. The *player*  variable is used to get the name of the player and the team *variable* to get the team name of that player. The operation in this class is only *getGoals* that returns the number of goals scored by that specific player.
-
-
-
-### Class CompetitionStandings
-
-This class is formed of only two attributes which are *standings* of type class **Standing** and *connection* of type HttpURLConnection. The *standings* variable is used to store the information about the standings in an particular league and *connection* is used for the API request to get the data. The only operation is the function *standingsRequest* that gets an attribute *id* of type integer. This function would display the stadnings from the chosen league in the following format: position + team name + points.
+This class is the second part of the Create Team branch of the program. In this class, all the players that are part of the team chosen by the user are displayed and stored in the variable *squad*. The method *createTeam*() is called from the **Competition** class. Also, the function *teamHttpRequest*(*id*) ,that is part of **HTTPCommunication** is called in order to get the players part of the team. 
 
 
 
-### Class Standing
+**Attributes**:
 
-This class is formed of two attributes, *type* of type string  and *table* of type class **Table**. The variable *type* is used to get from the API the right type of the information and the variable *table* is used to store about the information about each team's points and name. The only operation is the function *getType* that gets the type of the API information.
+*squad*: *Player*[]: Stores all the player which are part of the chosen team as *Player* type.
 
+ *id*: integer : Variable that is used by the method *getId*().
 
-
-### Class Table
-
-This class is formed of three attributes, *position* of type integer, *team* of type class **Team** and *points* of type integer. There are two operations, the function *getPos* and *getPoints*, that both return the position and the points of a specific team.
+*name: string*: Variable that is used by the method *getName*().
 
 
 
-### **Class Schedule** 
+**Operations**:
 
-This class is formed of three attributes, *matches* of type class **Matches**, *currentMatchday* of type integer and *connection* of type HttpURLConnection. The variable *matches* stores the home and away team of a particular match, *currentMatchday* stores the league's matchday  and *connection* is used for the API request to get the data for that particular matchday.
+*getName()*: string : Method used to return the name of the player
 
-There is only one operation, the *scheduleRequest* function that gets an attribute *id* of type integer. This function is responsible to display the schedule of the next week matches from the selected league. 
+*getId*(): integer :  Method used to return the id of the player
+
+*createTeam*(*id*: integer, *position:string*): void : Public void function which gets from the API all the players that are part of the team in JSON Format, stores it and prints it as a string on the terminal. Asks the user to input the wanted player. The input is protected by error-handling, meaning that the user will be asked again if his input is wrong.
+
+
+
+### Class Player
+
+This class is the third part of the Create Team branch of the program. In this class, the selected player from the team is stored in the *showSquad* variable that is part of the **Main** class. All the information about that player is fetched via the *playerHttpRequest* from the API. This function is a part of the **HTTPCommunication** class.
+
+**Attributes**
+
+*id*: integer : stores the id of the player used by the API and by the *getId*() method.
+
+*name*: string : stores the player's name, used by the *getName*() method.
+
+*position*: string :  player playing position, used by the GetPostition() method.
+
+*role*: string : stores the role in the team, coach or player.
+
+*coach*: boolean : variable used for telling the application that the user is selecting the coach, not a player.
+
+**Operations**:
+
+*getId*(): integer : Method used to return the player's or coach's Id.
+
+*getName*(): string : Method used to return the player's or coach's name.
+
+*getPosition*(): string : Method used to return the player's position, if a player
+
+*addPlayer*(id: integer): void : Public void function which stores the player or coach in the user's team. This method gets the information from the API as JSON Format, stores it and furthermore calls the next function that is part of the **PlayerPerformance**.
+
+
+
+### Class PlayerPerformance
+
+This class takes care of awarding points to the players and coach that are part of the user team. All the needed information is fetched from the API using the function *playerPerformanceHttpRequest*() that is part of the **HTTPCommunication** class. 
+
+**Attributes**:
+
+*rating*: integer : stores the total amount of points the player or coach received.
+
+*player*: Player : has all the details of the player that the app is analyzing the performance.
+
+*side*: string : stores if the player/coach is part of the home or away team.
+
+*matches*: Match[] : stores all the match information.
+
+*bench*: boolean : variable used to show if the player is part of the starting lineup or not.
+
+**Operations**:
+
+*teamPerformance*(coach: boolean) : Iterates through the whole user team and call the *playerPerformance*() for each player or coach.
+
+*playerPerformance*(name: string, id: integer, coach: boolean): void : Public void function which calculates the player or coach performance from the last game. The rating is given at the end and is stored in a *teamRating* HashMap, which is part of the **Main** class
+
+
+
+### Class Match
+
+This class stores all the information about the previous match played by the player or coach. It is a connection class made of all the variables needed to make the rating.
+
+**Attributes**:
+
+*goals*: *Goal*[] : stores the information about the goals scored such as the scorer and the player that assist
+
+*bookings*: *Booking*[] : stores the information about the bookings, such as the type and the name
+
+*substitutions*: *Substitutions* : store the information about the substitutions such as the names and the minute
+
+*homeTeam*: *SideTeam* : the name of the home team
+
+*awayTeam*: *SideTeam* : the name of the away team
+
+*score*: Score : stores the score of the match
+
+
+
+### Class Goal
+
+Class used to get the information about who scored or assist in that match, used to get the JSON data from API about goals.
+
+**Attributes**:
+
+*scorer*: Scorer : has the information about the scorer.
+
+*assist*: Assist : has the information about the player that assist.
+
+
+
+### Class Scorer
+
+Class that has detailed information about who scored in that particular match.
+
+**Attributes**:
+
+*name*: string : the name of the scorer.
+
+**Operations:**
+
+*getName*(): string : method to get the name of the scorer.
+
+
+
+### Class Assist
+
+Class that has detailed information about who assisted in that particular match.
+
+**Attributes**:
+
+*name*: string : the name of the player that assisted.
+
+**Operations:**
+
+*getName*(): string : method to get the name of the player that assisted.
+
+
+
+### Class Booking
+
+Class that has all the details about all the bookings in that particular game, used to get the JSON data from the API about bookings.
+
+**Attributes**:
+
+*player*: Player : has the information about the booked player
+
+*card*: string : give the type of the card as a string, "RED" or "YELLOW"
+
+
+
+### Class Substitutions
+
+Class that has all the details about all the substitutions made in that particular game, used to get the JSON data from the API about substitutions.
+
+**Attributes**:
+
+*minute*: integer : give the minute when the player was substituted.
+
+*playerOut*: PlayerOut : has the information about the player that is going out of the field.
+
+
+
+### Class PlayerOut
+
+Class that has the name of the player which is substituted. Used to get the name from JSON.
+
+**Attributes**:
+
+*name*: string : name of the player.
+
+**Operations:**
+
+*getName*(): string : method to get the name.
+
+
+
+### Class SideTeam
+
+Class that has the information about a particular team that played in that match.
+
+**Attributes**:
+
+*coach*: Coach : variable with the information about the team's coach
+
+*lineup*: Player[] : the lineup of all the players that were in the starting 11 of that match
+
+
+
+### Class Coach
+
+Class that contains the name of the Coach. Used to get the name from the JSON.
+
+**Attributes**:
+
+*name*: string : name of the coach.
+
+**Operations:**
+
+*getName*(): string : method that returns the name.
+
+
+
+### Class Score
+
+Class that has information about the match's score.
+
+**Attributes**:
+
+*fullTime*: FinalScore : variable that contains the match information
+
+
+
+### Class FinalScore
+
+**Attributes**:
+
+*homeTeam*: integer : score of home team
+
+*awayTeam*: integer : score of away team
+
+**Operations:**
+
+*getScore*(side: string): integer : method to get the score for any of the teams, giving as a value the side.
+
+*getWinner*(): string : returns the winner of the match.
+
+
+
+## Get information branch
+
+### Class Schedule
+
+This class, first option of Get information when the user selected "Schedule". The schedule from the selected league by the user is outputted. The function *scheduleRequest*(), part of **HTTPCommunication** class is used to fetch the data from the API. 
+
+**Attributes**:
+
+*matches*: Matches : variable that has the information about each match from the next matchday.
+
+*currentmatchday*: integer : stores the current match day of that league
+
+**Operations:**
+
+*showSchedule*(id: integer): void : public function that calls the function *getMatchDay*() part of **Matchday** class, in order to get the current matchday, and request the information about the next matchday. All the following matches from that particular league are displayed to the user.
 
 
 
 ### Class Matches
 
-This class is made of two attributes *homeTeam* and *awayTeam* both of type class **Team**. These two variables would store the information about the teams that play against each other such as their name.
+Class that stores the information about each match from that matchday.
+
+**Attributes**:
+
+*homeTeam*: Team : variable that stores the information about the home team
+
+*awayTeam*: Team : variable that stores the information about the away team
 
 
 
-### **Class Matchday**
+### Class Matchday
 
-There are two attributes in this class, *currentSeason* of type class **Season** and *connection* of type HttpURLConnection. The variable *currentSeason* is used to get information about this league's season and  *connection* is used for the API request to extract the need information about this season. There is only one operation, the *matchdayRequest* function that gets an attribute *id* of type integer. This function is responsible to find out the current matchday of the wanted league.
+Class used to get the current matchday of the selected league by using the API.
+
+**Attributes**:
+
+*currentSeason*: Season : variable used to store the information about the current season of that competition
+
+**Operations:**
+
+*getMatchDay*(id: integer) : method used to get the *matchday* of the current season,  by calling the function *matchDayRequest*(), which is part of the **HTTPCommunication** class. Furthermore,  using the class **Season** to return the *currentMtachday* to the **Schedule** class.
 
 
 
 ### Class Season
 
-There is just one attribute in this class, *currentMatchday* of type integer where the matchday would be stored. In addition, there is one operation, which is the getter,*getCurrentMatchday* .It would give back the exact integer of the matchday.
+Class used to store the information and convert the data from JSON.
+
+**Attributes**:
+
+*currentMatchday*: integer : the variable that stores the actual matchday
+
+**Operations:**
+
+*getCurrentMatchday*(): integer : function used to return the matchday.
+
+
+
+### Class CompetitionStandings
+
+This class is part of the second option of Get information, when the user selected "Standings".  The standings from the selected league by the user are outputted. 
+
+**Attributes**:
+
+*standings*: Standing[] : variable that has all the data about each team in the standings such as the name or position.
+
+**Operations:**
+
+*showStandings*(id: integer): void : public void function that fetches data from the API by calling the method *standingsRequest*(), giving in JSON format the data about the standings in that particular league. The standings are displayed in the terminal in order showing the amount of points each team has.
+
+
+
+### Class Standing
+
+Middle class used to fetch the correct data from the API. 
+
+**Attributes**:
+
+*type*: string : variable that is part of the API, that describes the type of standings.
+
+table: Table : variable where the data about the standings is stored.
+
+**Operations:**
+
+*getType()*: string : returns the type of the standings.
+
+
+
+### Class Table
+
+Class that has all the information about the teams in the standings. All the variables are used to get the JSON data from the API.
+
+**Attributes**:
+
+*position*: integer : store the current position of the team in that league
+
+*team*: Team : all the information about the team in question, such as the name
+
+*points*: integer : the amount of points the team has
+
+**Operations:**
+
+*getPos()*: integer : returns the current position.
+
+*getPoints*(): integer : returns the amount of points.
+
+
+
+### Class ScorersStandings
+
+This class is part of the third option of Get information, when the user selected "Top scorers".  The top scorers from the selected league by the user are outputted.
+
+**Attributes**:
+
+*scorers*: Scorers[] : store the information about all the top scorers from that league
+
+**Operations:**
+
+*scorersRequest*(id: integer) : void : Public void method that fetches the data by calling the scorersRequest() part of the **HTTPCommunication** class and prints the list of top scorers on the user's terminal.
+
+
+
+### Class TopScorers
+
+This class gets all the details about each top scorer of the league.
+
+**Attributes**:
+
+player: Player : all the details about the player in question.
+
+team: Team : all the information about the team for which the footballer plays for.
+
+numberofGoals : Integer : stores the amount of goals scored.
+
+**Operations:**
+
+*getGoals*(): Integer : method which returns the number of goals scored by that player.
+
+
+
+### Class HTTPCommunication
+
+This class takes care of all the requests to the API that are needed by the Application in order to get the needed data. All the request need the variable *connection* in order to communicate with the API. The request to use a special Id that is needed for each particular request in order to give us what we are looking for.
+
+**Attributes**:
+
+*connection*: HttpURLConnection : variable used to communicate with the API
+
+**Operations:**
+
+*competitionHttpRequest*(id: integer): StringBuffer : public method, which returns a StringBuffer. It contains the data from the API about which teams that part in that competition. The variable id, is the competition's *id*.
+
+*teamHttpRequest*(id: integer): StringBuffer : public method, which returns a StringBuffer. It contains the data from the API about which players are part of that team. The variable id, is the teams's *id*.
+
+*playerHttpRequest*(id: integer): StringBuffer: public method, which returns a StringBuffer. It contains the data from the API about the player the user selected. The variable id, is the player's *id*.
+
+*standingsRequest*(id: integer): StringBuffer : public method, which returns a StringBuffer. It contains the data from the API about the standings in the selected league. The variable id, is the competition's *id*.
+
+*scorersRequest*(id :integer): StringBuffer : public method, which returns a StringBuffer. It contains the data from the API about the top scorers in the selected league. The variable id, is the competition's *id*.
+
+*scheduleRequest*(id: integer): StringBuffer : public method, which returns a StringBuffer. It contains the data from the API about the schedule in the selected league. The variable id, is the competition's *id*.
+
+*matchDayRequest*(id: integer): StringBuffer : public method, which returns a StringBuffer. It contains the data from the API about the matchday in the selected league. The variable id, is the competition's *id*.
+
+*playerPerformanceHttpRequest*(id: integer): StringBuffer : public method, which returns a StringBuffer. It contains the data from the API about the previous match played by the footballer in the selected league. The variable id, is the player's *id*.
 
 
 
@@ -254,7 +648,7 @@ This class, **main** starts with the declaration on multiple hashmaps that will 
 
 ### Jar file
 
-The Jar file for directly executing the code can be found in Software Design/out/artifacts/software_design_vu_2020.main.jar or as a [link](https://github.com/daniel-istratii/Software-Design/blob/Assignment-2/out/artifacts/software-design-vu-2020.main.jar).
+The Jar file for directly executing the code can be found in Software Design/out/artifacts/software_design_vu_2020_jar/software_design_vu_2020.main.jar or as a [link](https://github.com/daniel-istratii/Software-Design/blob/Assignment-3/out/artifacts/software_design_vu_2020_jar/software-design-vu-2020.main.jar).
 
 ### **Video**
 
@@ -268,4 +662,5 @@ The second video: https://youtu.be/xZCjOdGPfJc , we show how the "Get informatio
 
 ### Assignment 1 feedback
 
-We made the changes to assignment 1. It seems that we uploaded the wrong document last time with just a few modifications. We had a document that had more changes and it was our mistake. The quality requirements have been modified. The correct Assignment 1 can be found inside the folder docs in branch assignment 3.
+We made the changes to assignment 1. It seems that we uploaded the wrong document last time with just a few modifications. We had a document that had more changes and it was our mistake. The quality requirements have been modified. The correct Assignment 1 can be found inside the folder docs in branch assignment 3 or [here](https://github.com/daniel-istratii/Software-Design/blob/Assignment-3/docs/assignment1.md).
+
