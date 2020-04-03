@@ -6,7 +6,7 @@
 
 # Summary of changes of Assignment 2
 
-Authors: Daniel, Radu
+Authors: D. Istratii, R. Florea
 
 - changed the names of classes, functions and attributes to be more descriptive
 
@@ -35,7 +35,7 @@ Authors: Daniel, Radu
   
 # Application of design patterns
 
-Authors: Daniel, Radu
+Authors: D. Istratii, R. Florea
 
 ![](/home/raduscafl/Desktop/Software-Design/docs/dpl.jpeg)
 
@@ -53,7 +53,7 @@ Authors: Daniel, Radu
 
 # Class Diagram
 
-Authors: Daniel, Radu
+Authors: D. Istratii, R. Florea
 
 In software engineering, a class diagram in the Unified Modeling Language (UML) is a type of static structure diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects.
 
@@ -543,7 +543,7 @@ This class takes care of all the requests to the API that are needed by the Appl
 
 # Object diagram 
 
-Authors: Daniel, Radu Florea
+Authors: D. Istratii, R. Florea
 
 
 
@@ -561,7 +561,7 @@ Going into the next state, he has on more attacker to choose. He starts again th
 
 # State machine diagrams
 
-Author: Anton Kolkma
+Author: A. Kolkma
 
 ### **FantasySoccer**
 
@@ -589,7 +589,7 @@ The **CompetitionStandings** class is a small class in which an object is create
 
 # Sequence diagrams
 
-Author: Radu Florea
+Author: R. Florea
 
 When the program is executed, there are 2 possible paths to be followed. The first one is “Create team” and the second one is “Get information”. Accordingly, the program flow differs.
 
@@ -639,7 +639,7 @@ Thirdly, if the input is "Schedule", the method *showSchedule*() is called that 
 
 # Implementation
 
-Authors: Daniel Istratii, Radu Florea
+Authors: D. Istratii, R. Florea
 
 Moving from the designing/modelling phase to the actual implementation was by following what classes, objects, state machines, and sequence diagrams we initially had in mind, additionally with all the attributes and operations with their specific data type, value, and functionality. However, in some cases, our implementation did not know according to our initial design, and therefore some parts had to be rethought and implemented again. For instance, we had encountered several problems while extracting data from the Internet using the Football API. We would like to mention that the API we used is the following one: https://www.football-data.org/, and our Application will work only with a valid subscription for this Football API, for the moment the user is using our own paid subscription, but in the future if the application will be used, a paid subscription will indeed be necessary.
 
