@@ -6,7 +6,7 @@
 
 # Summary of changes of Assignment 2
 
-Authors: D. Istratii, R. Florea
+Authors: Daniel, Radu
 
 - changed the names of classes, functions and attributes to be more descriptive
 
@@ -35,25 +35,24 @@ Authors: D. Istratii, R. Florea
   
 # Application of design patterns
 
-Authors: D. Istratii, R. Florea
+Authors: Daniel, Radu
 
 ![](/home/raduscafl/Desktop/Software-Design/docs/dpl.jpeg)
 
 | ID  | DP1  |
 |---|---|
 | **Design pattern**  | Factory pattern |
-| **Problem**  | Poor maintainability because all the sub-types of the entire system are hard-coded. |
-| **Solution**  | This design pattern was needed and applied because whenever the user will have to add a Player with a specific position, the createCompetition() function found in the LaunchMainMenu class needs the position parameter and therefore whenever a new instance of this Player class is created it needs to create different types of Players based on their position, therefore their implementation will differ, additionally in this class, the object does not know what concrete classes will be required to create objects at runtime, our goal was just to get a class that will the job. Also, the secondary role was to make the design more customizable in terms of which objects can be created.|
-| **Intended use**  | The intended use of this design pattern is to avoid the new operator because we didn't want to hard code which class the application needs to instantiate. |
-| **Constraints**  | There are no constraints that need to be mentioned. |
-| **Additional remarks**  | Additionally, this design pattern could have been extended such that a wider variety of positions for the player would be available, for instance, the possibility of creating an instance of the class Player with the position as Manager, for instance. Also, several design patterns have been tried to be incorporated in our implementation, such as the uses of Iterators, Singleton, etc, but unfortunately, Emre Guduk our Group colleague which was responsible for this section, informed us last minute that he left our group and therefore the 3 of us were left for this section and there was not a lot of time left to re-implement additional design patterns for our Implementation, but nonetheless this application is not having major maintainability, readability or evolvability problems, therefore the use of additional design patterns could have increased the probability to encounter some maintainability issues. |
-
+| **Problem**  | Poor maintanability because all the sub-types of entire system is hard-coded. |
+| **Solution**  | This design pattern was needed and applied, because whenever the user will have to add a Player with a specific position, the createCompetition() function found in the LaunchMainMenu class needs the position parameter and therefore whenever a new instance of this Player class is created it needs to create different types of Players based on their position, therefore their implementation will differ, additionally in this class the object does not know what concrete classes will be required to create objects at runtime, our goal was just to get a class that will the job. Also the secondary role was to make the design more customizable in terms of which objects can be created.|
+| **Intended use**  | The inteneded use of this design pattern is to avoid the new operator becase we didn't want to hard code which class the application needs to instantiate. |
+| **Constraints**  | There are no costraints that needs to be mentioned. |
+| **Additional remarks**  | Additionally, this design pattern could have been extend such that a wider variety of positions for the player would be available, for instance the possibility of creating an instance of the class Player with position as Manager, for instance. |
 
 
 
 # Class Diagram
 
-Authors: D. Istratii, R. Florea
+Authors: Daniel, Radu
 
 In software engineering, a class diagram in the Unified Modeling Language (UML) is a type of static structure diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects.
 
@@ -543,7 +542,7 @@ This class takes care of all the requests to the API that are needed by the Appl
 
 # Object diagram 
 
-Authors: D. Istratii, R. Florea
+Authors: Daniel, Radu Florea
 
 
 
@@ -561,7 +560,7 @@ Going into the next state, he has on more attacker to choose. He starts again th
 
 # State machine diagrams
 
-Author: A. Kolkma
+Author: Anton Kolkma
 
 ### **FantasySoccer**
 
@@ -589,7 +588,7 @@ The **CompetitionStandings** class is a small class in which an object is create
 
 # Sequence diagrams
 
-Author: R. Florea
+Author: Radu Florea
 
 When the program is executed, there are 2 possible paths to be followed. The first one is “Create team” and the second one is “Get information”. Accordingly, the program flow differs.
 
@@ -639,7 +638,7 @@ Thirdly, if the input is "Schedule", the method *showSchedule*() is called that 
 
 # Implementation
 
-Authors: D. Istratii, R. Florea
+Authors: Daniel Istratii, Radu Florea
 
 Moving from the designing/modelling phase to the actual implementation was by following what classes, objects, state machines, and sequence diagrams we initially had in mind, additionally with all the attributes and operations with their specific data type, value, and functionality. However, in some cases, our implementation did not know according to our initial design, and therefore some parts had to be rethought and implemented again. For instance, we had encountered several problems while extracting data from the Internet using the Football API. We would like to mention that the API we used is the following one: https://www.football-data.org/, and our Application will work only with a valid subscription for this Football API, for the moment the user is using our own paid subscription, but in the future if the application will be used, a paid subscription will indeed be necessary.
 
