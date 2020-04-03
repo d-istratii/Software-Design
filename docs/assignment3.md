@@ -6,6 +6,8 @@
 
 # Summary of changes of Assignment 2
 
+Authors: Daniel, Radu
+
 - changed the names of classes, functions and attributes to be more descriptive
 
 - made a special class for all the HTTP request
@@ -31,6 +33,18 @@
 - the structure and protocol of the UML designs has been changed to follow the UML design conventions
 
   
+# Application of design patterns
+
+Authors: Daniel, Radu
+
+| ID  | DP1  |
+|---|---|
+| **Design pattern**  | Factory pattern |
+| **Problem**  | Poor maintanability because all the sub-types of entire system is hard-coded. |
+| **Solution**  | This design pattern was needed and applied, because whenever the user will have to add a Player with a specific position, the createCompetition() function found in the LaunchMainMenu class needs the position parameter and therefore whenever a new instance of this Player class is created it needs to create different types of Players based on their position, therefore their implementation will differ, additionally in this class the object does not know what concrete classes will be required to create objects at runtime, our goal was just to get a class that will the job. Also the secondary role was to make the design more customizable in terms of which objects can be created.|
+| **Intended use**  | The inteneded use of this design pattern is to avoid the new operator becase we didn't want to hard code which class the application needs to instantiate. |
+| **Constraints**  | There are no costraints that needs to be mentioned. |
+| **Additional remarks**  | Additionally, this design pattern could have been extend such that a wider variety of positions for the player would be available, for instance the possibility of creating an instance of the class Player with position as Manager, for instance. |
 
 
 
