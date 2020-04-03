@@ -6,7 +6,7 @@
 
 # Summary of changes of Assignment 2
 
-Authors: Daniel, Radu
+Authors: D. Istratii, R. Florea
 
 - changed the names of classes, functions and attributes to be more descriptive
 
@@ -35,24 +35,25 @@ Authors: Daniel, Radu
   
 # Application of design patterns
 
-Authors: Daniel, Radu
+Authors: D. Istratii, R. Florea
 
 ![dpl](dpl.png)
 
 | ID  | DP1  |
 |---|---|
 | **Design pattern**  | Factory pattern |
-| **Problem**  | Poor maintanability because all the sub-types of entire system is hard-coded. |
-| **Solution**  | This design pattern was needed and applied, because whenever the user will have to add a Player with a specific position, the createCompetition() function found in the LaunchMainMenu class needs the position parameter and therefore whenever a new instance of this Player class is created it needs to create different types of Players based on their position, therefore their implementation will differ, additionally in this class the object does not know what concrete classes will be required to create objects at runtime, our goal was just to get a class that will the job. Also the secondary role was to make the design more customizable in terms of which objects can be created.|
-| **Intended use**  | The inteneded use of this design pattern is to avoid the new operator becase we didn't want to hard code which class the application needs to instantiate. |
-| **Constraints**  | There are no costraints that needs to be mentioned. |
-| **Additional remarks**  | Additionally, this design pattern could have been extend such that a wider variety of positions for the player would be available, for instance the possibility of creating an instance of the class Player with position as Manager, for instance. |
+| **Problem**  | Poor maintainability because all the sub-types of the entire system are hard-coded. |
+| **Solution**  | This design pattern was needed and applied because whenever the user will have to add a Player with a specific position, the createCompetition() function found in the LaunchMainMenu class needs the position parameter and therefore whenever a new instance of this Player class is created it needs to create different types of Players based on their position, therefore their implementation will differ, additionally in this class, the object does not know what concrete classes will be required to create objects at runtime, our goal was just to get a class that will the job. Also, the secondary role was to make the design more customizable in terms of which objects can be created.|
+| **Intended use**  | The intended use of this design pattern is to avoid the new operator because we didn't want to hard code which class the application needs to instantiate. |
+| **Constraints**  | There are no constraints that need to be mentioned. |
+| **Additional remarks**  | Additionally, this design pattern could have been extended such that a wider variety of positions for the player would be available, for instance, the possibility of creating an instance of the class Player with the position as Manager, for instance. Also, several design patterns have been tried to be incorporated in our implementation, such as the uses of Iterators, Singleton, etc, but unfortunately, Emre Guduk our Group colleague which was responsible for this section, informed us last minute that he left our group and therefore the 3 of us were left for this section and there was not a lot of time left to re-implement additional design patterns for our Implementation, but nonetheless this application is not having major maintainability, readability or evolvability problems, therefore the use of additional design patterns could have increased the probability to encounter some maintainability issues. |
+
 
 
 
 # Class Diagram
 
-Authors: Daniel, Radu
+Authors: D. Istratii, R. Florea
 
 In software engineering, a class diagram in the Unified Modeling Language (UML) is a type of static structure diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects.
 
@@ -542,7 +543,7 @@ This class takes care of all the requests to the API that are needed by the Appl
 
 # Object diagram 
 
-Authors: Daniel, Radu Florea
+Authors: D. Istratii, R. Florea
 
 
 
@@ -560,15 +561,15 @@ Going into the next state, he has on more attacker to choose. He starts again th
 
 # State machine diagrams
 
-Author: Anton Kolkma
+Author: A. Kolkma
 
-### **FantasySoccer**
+### **Launch Main Menu**
 
 ![State M system](StatemachineApp.jpeg)
 
 
 
-The **FantasySoccer** class is the main class of the program where it deals mostly with the relationship between user input and communicating with the football API. When a FantasySoccer object is created, it starts in an initial state called 'Idle waiting for input'. Once entering this state the program will output the available options to the user, the options being: 'Create team', 'Get information', 'Display teams', 'Display ratings', and 'Exit'. If the user inputs the 'Create team' option, the system state transitions to a composite state named 'Communicating with API', which consists of 2 substates named 'Creating team' and 'Retrieving API data'. First, the state transitions to the 'Creating team' substate, in which the program asks the user multiple questions to narrow the player choice. Each question will request data from the API, marked by the transition to the 'Retrieving API data' substate. When the data is retrieved, it enters a choice pseudostate where the next state depends on the guards. Since the initial option was to create the team, its respective guard is evaluated to be true and we return to the creating team substate. These substate transitions happen continually for each player until the team is full, then the substate transitions to the finished state. Once finished, the state transitions back to the initial 'Idle waiting for input' state. If the user inputs 'Get information', the program then asks specifically which information such as 'Standings', 'Scorers', or 'Schedule'. Once the choice is locked in, the state transitions into the Retrieving API data substrate as described before. Once data is collected, it comes to the choice pseudostate again except the guard for information is evaluated to be true and it transitions to a Printing state outside of the composite state. This state displays the requested data on the terminal, once completed it transitions back to the initial idle state. If the input was 'Display teams' or 'Display ratings', the program simply transitions to the printing state and displays whichever option was specified, then returns to idling. Finally, the 'Exit' option brings the object to the final state.
+The **LaunchMainMenu** class is the main class of the program where it deals mostly with the relationship between user input and communicating with the football API. When a LaunchMainMenu object is created, it starts in an initial state called 'Idle waiting for input'. Once entering this state the program will output the available options to the user, the options being: 'Create team', 'Get information', 'Display teams', 'Display ratings', and 'Exit'. If the user inputs the 'Create team' option, the system state transitions to a composite state named 'Communicating with API', which consists of 2 substates named 'Creating team' and 'Retrieving API data'. First, the state transitions to the 'Creating team' substate, in which the program asks the user multiple questions to narrow the player choice. Each question will request data from the API, marked by the transition to the 'Retrieving API data' substate. When the data is retrieved, it enters a choice pseudostate where the next state depends on the guards. Since the initial option was to create the team, its respective guard is evaluated to be true and we return to the creating team substate. These substate transitions happen continually for each player until the team is full, then the substate transitions to the finished state. Once finished, the state transitions back to the initial 'Idle waiting for input' state. If the user inputs 'Get information', the program then asks specifically which information such as 'Standings', 'Scorers', or 'Schedule'. Once the choice is locked in, the state transitions into the Retrieving API data substrate as described before. Once data is collected, it comes to the choice pseudostate again except the guard for information is evaluated to be true and it transitions to a Printing state outside of the composite state. This state displays the requested data on the terminal, once completed it transitions back to the initial idle state. If the input was 'Display teams' or 'Display ratings', the program simply transitions to the printing state and displays whichever option was specified, then returns to idling. Finally, the 'Exit' option brings the object to the final state.
 
 
 
@@ -588,7 +589,7 @@ The **CompetitionStandings** class is a small class in which an object is create
 
 # Sequence diagrams
 
-Author: Radu Florea
+Author: R. Florea
 
 When the program is executed, there are 2 possible paths to be followed. The first one is “Create team” and the second one is “Get information”. Accordingly, the program flow differs.
 
@@ -638,7 +639,7 @@ Thirdly, if the input is "Schedule", the method *showSchedule*() is called that 
 
 # Implementation
 
-Authors: Daniel Istratii, Radu Florea
+Authors: D. Istratii, R. Florea
 
 Moving from the designing/modelling phase to the actual implementation was by following what classes, objects, state machines, and sequence diagrams we initially had in mind, additionally with all the attributes and operations with their specific data type, value, and functionality. However, in some cases, our implementation did not know according to our initial design, and therefore some parts had to be rethought and implemented again. For instance, we had encountered several problems while extracting data from the Internet using the Football API. We would like to mention that the API we used is the following one: https://www.football-data.org/, and our Application will work only with a valid subscription for this Football API, for the moment the user is using our own paid subscription, but in the future if the application will be used, a paid subscription will indeed be necessary.
 
