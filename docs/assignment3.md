@@ -37,7 +37,7 @@ Authors: Daniel, Radu
 
 Authors: Daniel, Radu
 
-![dpl](/home/raduscafl/Desktop/Software-Design/docs/dpl.png)
+![dpl](dpl.png)
 
 | ID  | DP1  |
 |---|---|
