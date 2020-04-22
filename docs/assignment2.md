@@ -130,7 +130,7 @@ Authors: Daniel, Radu
 
 
 
-![Object diagram](Object diagram.png)
+![Object diagram](Objectdiagram.png)
 
 
 
@@ -146,9 +146,26 @@ Going into the next state, he has on more attacker to choose. He starts again th
 
 Author: Kolkma
 
-![State M system](State machine 1.jpeg)
+### **FantasySoccer**
+
+![State M system](Statemachine1.jpeg)
 
 
+
+The **FantasySoccer** class is the main class of the program where it deals most with user input. When a FantasySoccer object is created, it first transitions into a state called 'Choosing Option'. Once entering this state the program will present the options to the user, namely Get information and Create team, and wait until the user inputs their option. Once the activity is completed, the state can transition to 2 different states depending on the user's choice, in this case let's go with the Create team option. The object then follows a line of states which will transition to the next state once the user has input their option, first with creating the team name, then choosing the team's formation. After these two states, the user will then specify the player they want by entering a loop of states consisting of choosing league, choose team, and choose player. When the user has chosen a player, there will be a transition to the next state depending on 2 guard conditions. If the guard condition that the team is full, i.e. the user has chosen players for all position in their team, evaluates to true then the object transitions to the finished state. If the guard condition that the team is not full after choosing a player has been completed, or the specified player is already in the team evaluates to true, then the state transitions to the previous state of 'Choose League'. 
+If in the beginning the user chooses Get information, the object enters another 'Choose League' state, in which the user is presented with the options of specifically the standings, schedule or the top scorers of that league. Once the event of user input occurs, the state transitions to a print state where the program prints the information specified by the user. The information is presented in different formats base on what the user wants. Once the printing activity is complete, it transitions to the final state.
+
+
+
+### CompetitionStandings
+
+![](StatemachineCompetitionStandings.jpeg)
+
+
+
+
+
+The **CompetitionStandings** class is a small class in which an object is created if the user wants to get information about the standings of teams in a league. Initially it transitions into a printing state, which once entering this state the object sends an HTTP request to the API where the user has specified which league before the object has been created. The object will then print out the response from the API, which will either be the standings or an error message. The object then transitions to the final state.
 
 # Sequence diagrams
 
@@ -162,7 +179,7 @@ If the user wants to create a team in the beginning of the execution, basically 
 
 
 
-![Create Team](Sequence diagrams team.jpeg)
+![Create Team](Sequencediagramsteam.jpeg)
 
 First of all, there are 3 objects and 1 actor in this diagram. Those components will be interacting with each other during the execution. “Actor” is the user/player, “Client” is the code combined with the GUI, “Api” is the tool which will be used to communicate with the database and the “Data” is the ready to use data which holds the all current soccer data. In the beginning, the client(actual code combined with GUI) will be asking for a “Team Name” to create a new team. This operation is handled and the user’s response will be held in the client's working directory. When the name of the team is ready, as the next step, the client will be asking for the team. This formation will be used later on to fill up the team with players by using a hash map. Afterwards, the formation response from the actor will also be held in the client's working directory. After this point, the actor will be setting up his\her team with players. As the third step, the client will be asking for a league. Once the client receives a response from the actor, it will match the response with the equivalent id number in its data and then send a request to the API by using this id number. When the API receives this request, it will fetch all of the teams in the requested league from the database. Then, the API will send those teams to the client. Afterwards, the actor will be asked to enter a team name. If the actor responds, the client will receive the response, match it with the equivalent id number and send a request to API by using this team id number. The API will fetch the players in the requested team from the database and bring it back to the client. The formation is important here. We hard coded that first of all, the goalkeeper will be chosen from the requested team. So, no matter what operation is going, the first pick for the players will be the goalkeeper. That means, when the first team request is sent to the API, API will bring only the list of goalkeepers in the requested team. Afterwards, according to the formation, API will bring the relevant players till it reaches its limits. For instance, if the actor chooses 4-4-2 as the formation, first team request will bring the goalkeeper and then 4 defenders and so forth. When 11 players are added to the team, the client will ask for a coach and all of the newly created team data will be held in the client's working directory. Then the program will display the user's team by showing each player and his position  in the order they were chosen. After, the program will terminate itself. We do not have error handling yet. So, if we had error handling, on the client side, the client would be checking for formation, league name, team name and player name. Because, if there is a problem with the input taken from the Actor, the rest of the program will not work as required. For instance, every league and every team has been attached to an id number. If the user’s input for the team name does not match with any of those id numbers, the program will not be able to jump into the next step. So, the whole process will be stuck at this point.
 
@@ -174,7 +191,7 @@ If the user wants to get information about the fixture in the beginning of the e
 
 
 
-![Get info](Sequence diagrams get info.jpeg)
+![Get info](Sequencediagramsgetinfo.jpeg)
 
 
 
@@ -208,7 +225,7 @@ This class, **main** starts with the declaration on multiple hashmaps that will 
 
 ### Jar file
 
-The Jar file for directly executing the code can be found in Software Design/out/artifacts/software_design_vu_2020_jar/software_design_vu_2020.jar or as a [link](https://github.com/daniel-istratii/Software-Design/tree/Assignment-2/out/artifacts/software_design_vu_2020_jar).
+The Jar file for directly executing the code can be found in Software Design/out/artifacts/software_design_vu_2020_jar/software_design_vu_2020.main.jar or as a [link](https://github.com/daniel-istratii/Software-Design/blob/Assignment-2/out/artifacts/software_design_vu_2020_jar/software-design-vu-2020.main.jar).
 
 ### **Video**
 
@@ -217,3 +234,16 @@ We have created two videos to show the functionalities of our Fantasy Soccer app
 The first video: https://youtu.be/Gs1-5UTbKQA , we present how the user can create a team and the steps in order to add player to his team.
 
 The second video: https://youtu.be/Z00OpOBmIb8 , we show how the "Get information" section works and what the player can find out about his favorite football league. In our example, we just show the standings in the Serie A league.
+
+
+
+### Assignment 1 feedback
+
+After receiving the feedback, we have changed the assignment 1 document that can be found in the docs section in both Assignment 2 branch and Assignment  1-revert. We understood that we were missing a lot of functionalities and during the modeling part of our project we managed to come up with lots of ideas that can be implemented in our system. 
+
+
+
+### Photos
+
+We had some problems with adding the photos into our project. we know that is not really a nice design to have all the photos in the docs folder, however for the following Assignment we are going to put them separately.
+
